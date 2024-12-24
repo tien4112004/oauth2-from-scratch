@@ -1,6 +1,7 @@
 package com.example.oauth20_from_scratch.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -25,5 +26,6 @@ public class Client {
     private String clientSecret;
 
     @JsonProperty
+    @ElementCollection
     private List<String> scopes;
 }
