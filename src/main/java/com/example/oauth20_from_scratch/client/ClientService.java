@@ -19,11 +19,12 @@ public class ClientService {
 
     @Transactional
     public ClientDto registerClientDetails(ClientDto clientDto) {
-        var client = setClientData(clientDto);
         var clientSecret = passwordGenerator();
-        client.setClientSecret(clientSecret);
-        clientRepository.save(client);
-        return objectMapper.convertValue(client, ClientDto.class);
+        clientDto.setClientSecret(clientSecret);
+
+        var client = setClientData(clientDto);
+        var addedClient = clientRepository.save(client);
+        return objectMapper.convertValue(addedClient, ClientDto.class);
     }
 
     @Transactional
@@ -37,9 +38,8 @@ public class ClientService {
     }
 
     private Client setClientData(ClientDto clientDto) {
-        var client = objectMapper.convertValue(clientDto, Client.class);
-        client.setClientId(clientDto.getClientId());
-        client.setClientSecret(clientDto.getClientSecret());
-        return client;
+        var clientId = clientDto.getClientId();
+        var clientSecret = clientDto.getClientSecret();
+        return new Client(clientId, clientSecret, clientDto.getScopes());
     }
 }
