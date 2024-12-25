@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class VaultKey {
     @Id
-    @GeneratedValue(strategy= GenerationType.SEQUENCE, generator="MySequenceGenerator")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private String publicKey;

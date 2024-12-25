@@ -77,11 +77,9 @@ public class OAuth20Service {
             throw new EntityNotFoundException("Client not found");
         }
 
-        String encodedSecret = passwordEncoder.encode(tokenDto.getClientSecret());
-        if (StringUtils.equalsIgnoreCase(client.getClientSecret(), encodedSecret)) {
+        if (tokenDto.getClientSecret().equalsIgnoreCase(client.getClientSecret())) {
             return;
         }
-
         throw new BadRequestException("Invalid client details");
     }
 
@@ -91,8 +89,7 @@ public class OAuth20Service {
             throw new EntityNotFoundException("Auth code not found");
         }
 
-        var encodedAuthCode = passwordEncoder.encode(tokenDto.getCode());
-        if (StringUtils.equalsIgnoreCase(authCodeEntity.getAuthorizationCode(), encodedAuthCode)) {
+        if (passwordEncoder.matches(tokenDto.getCode(), authCodeEntity.getAuthorizationCode())) {
             return;
         }
         throw new BadRequestException("Invalid auth code");

@@ -25,6 +25,12 @@ public class Client {
     @NonNull
     private String clientSecret;
 
+    @JsonProperty(value = "name")
+    private String name;
+
+    @JsonProperty(value = "redirect_uri")
+    private String redirectUri;
+
     @JsonProperty
     @ElementCollection
     private List<String> scopes;
